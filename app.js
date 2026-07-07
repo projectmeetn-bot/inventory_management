@@ -459,6 +459,31 @@ function lowStockReport() {
     console.table(lowStockProducts);
 }
 
+function outOfStockReport() {
+
+    // Read Products
+    let products = readProducts();
+
+    // Filter Out Of Stock Products
+    let outOfStockProducts = products.filter((product) => {
+        return product.stock === 0;
+    });
+
+    // No Out Of Stock Products
+    if (outOfStockProducts.length === 0) {
+        console.log("\n✅ No out of stock products.");
+        return;
+    }
+
+    // Display Report
+    console.log("\n=====================================");
+    console.log("       OUT OF STOCK REPORT");
+    console.log("=====================================\n");
+
+    console.table(outOfStockProducts);
+
+}
+
 // ===============================
 // Main Menu
 // ===============================
@@ -519,7 +544,7 @@ do {
             break;
 
         case 9:
-            console.log("Out Of Stock Report");
+            outOfStockReport()
             break;
 
         case 10:
