@@ -167,6 +167,63 @@ function searchProduct() {
 
 }
 
+function updateProducts() {
+    try {
+        let products = readProducts();
+        let id = Number(line.question('Enter Product ID :'));
+
+        let product = products.find((product) => {
+            return product.id === id;
+        });
+
+        if (!product) {
+            throw Error("Product not found.");
+        }
+
+        console.log("\nCurrent Product");
+        console.log(`Name  : ${product.name}`);
+        console.log(`Price : ${product.price}`);
+        console.log(`Stock : ${product.stock}`);
+
+        let newName = line.question("Enter New Name : ").trim();
+        let newPrice = Number(line.question("Enter New Price : "));
+        let newStock = Number(line.question("Enter New Stock : "));
+
+        // Number Validation
+        if (Number.isNaN(newPrice)) {
+            throw Error("Price must be a valid number.");
+        }
+
+        if (Number.isNaN(newStock)) {
+            throw Error("Stock must be a valid number.");
+        }
+
+        // Name Validation
+        if (newName === "") {
+            throw Error("Product name cannot be empty.");
+        }
+
+        // Price Validation
+        if (newPrice <= 0) {
+            throw Error("Price must be greater than 0.");
+        }
+
+        // Stock Validation
+        if (newStock <= 0) {
+            throw Error("Stock must be greater than 0.");
+        }
+
+        product.name = newName;
+        product.price = newPrice;
+        product.stock = newStock;
+
+        saveProducts(products);
+        console.log("✅ Product Updated Successfully");
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 // ===============================
 // Main Menu
 // ===============================
@@ -207,7 +264,7 @@ do {
             break;
 
         case 4:
-            console.log("Update Product");
+            updateProducts()
             break;
 
         case 5:
