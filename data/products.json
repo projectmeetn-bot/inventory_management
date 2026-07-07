@@ -4,11 +4,5 @@
         "name": "HP Vicstus",
         "price": 83000,
         "stock": 100
-    },
-    {
-        "id": 2,
-        "name": "Croma Smart TV",
-        "price": 30000,
-        "stock": 5
     }
 ]

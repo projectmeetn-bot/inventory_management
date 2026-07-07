@@ -257,6 +257,55 @@ function updateProduct() {
 }
 
 // ===============================
+// Delete Product
+// ===============================
+function deleteProduct() {
+
+    try {
+
+        // Read Products
+        let products = readProducts();
+
+        // Take Product ID
+        let id = Number(line.question("Enter Product ID : "));
+
+        // Find Product
+        let product = products.find((product) => {
+            return product.id === id;
+        });
+
+        // Product Not Found
+        if (!product) {
+            throw Error("Product not found.");
+        }
+
+        // Find Product Index
+        let index = products.findIndex((product) => {
+            return product.id === id;
+        });
+
+        // Delete Product
+        products.splice(index, 1);
+
+        // Save Updated Products
+        saveProducts(products);
+
+        // Success Message
+        console.log("\n=====================================");
+        console.log("✅ Product Deleted Successfully");
+        console.log("=====================================");
+        console.log(`Deleted Product ID   : ${product.id}`);
+        console.log(`Deleted Product Name : ${product.name}`);
+
+    } catch (error) {
+
+        console.log("\n❌", error.message);
+
+    }
+
+}
+
+// ===============================
 // Main Menu
 // ===============================
 
@@ -300,7 +349,7 @@ do {
             break;
 
         case 5:
-            console.log("Delete Product");
+            deleteProduct()
             break;
 
         case 6:
