@@ -1,35 +1,66 @@
-// Import
-const fs = require('fs')
-const line = require('readline-sync')
+// ===============================
+// Inventory Management System
+// ===============================
 
+// Import Modules
+const fs = require("fs");
+const line = require("readline-sync");
+
+// File Path
+const PRODUCT_FILE = "./data/products.json";
+
+// ===============================
 // Read Products
+// ===============================
 function readProducts() {
-    let json = fs.readFileSync("./data/products.json", "utf8");
-    let products = JSON.parse(json);
-
-    return products;
+    let json = fs.readFileSync(PRODUCT_FILE, "utf8");
+    return JSON.parse(json);
 }
 
-// Save Products and Update JSON file
-function saveProducts() {
-    let updatedData = JSON.stringify(obj, null, 4);
-    fs.writeFileSync("./data/products.json", updatedData);
-
+// ===============================
+// Save Products
+// ===============================
+function saveProducts(products) {
+    let updatedData = JSON.stringify(products, null, 4);
+    fs.writeFileSync(PRODUCT_FILE, updatedData);
 }
 
+// ===============================
 // Add Product
+// ===============================
 function addProduct() {
-    let products = readProducts()
-
-    let id = Number(line.question('Enter Product ID :'));
-    let name = line.question('Enter Product Name :').trim();
-    let price = Number(line.question('Enter Product Price :'));
-    let stock = Number(line.question('Enter Stock :'));
 
     try {
+
+        // Read Existing Products
+        let products = readProducts();
+
+        // User Input
+        let id = Number(line.question("Enter Product ID : "));
+        let name = line.question("Enter Product Name : ").trim();
+        let price = Number(line.question("Enter Product Price : "));
+        let stock = Number(line.question("Enter Product Stock : "));
+
+        // ===============================
+        // Validations
+        // ===============================
+
+        // Number Validation
+        if (Number.isNaN(id)) {
+            throw Error("Product ID must be a valid number.");
+        }
+
+        if (Number.isNaN(price)) {
+            throw Error("Price must be a valid number.");
+        }
+
+        if (Number.isNaN(stock)) {
+            throw Error("Stock must be a valid number.");
+        }
+
         // ID Validation
         if (id <= 0) {
-            throw Error('Product ID must be greater than 0')
+            throw Error("Product ID must be greater than 0.");
         }
 
         // Duplicate ID Validation
@@ -48,28 +79,50 @@ function addProduct() {
 
         // Price Validation
         if (price <= 0) {
-            throw Error('Price must be greater than 0')
+            throw Error("Price must be greater than 0.");
         }
 
         // Stock Validation
         if (stock <= 0) {
             throw Error("Stock must be greater than 0.");
         }
+
+        // Create Product Object
         const product = {
             id,
             name,
             price,
             stock
-        }
+        };
 
+        // Add Product
         products.push(product);
+
+        // Save Updated Products
         saveProducts(products);
-        console.log(`\n✅ Product "${name}" added successfully.`);
+
+        // Success Message
+        console.log("\n=================================");
+        console.log("✅ Product Added Successfully");
+        console.log("=================================");
+        console.log(`ID    : ${id}`);
+        console.log(`Name  : ${name}`);
+        console.log(`Price : ${price}`);
+        console.log(`Stock : ${stock}`);
+
     } catch (error) {
-        console.log(error.message)
+
+        console.log("\n❌ Error:", error.message);
+
     }
 
 }
+
+// ===============================
+// Main Menu
+// ===============================
+
+let choice;
 
 do {
 
@@ -93,53 +146,51 @@ do {
     switch (choice) {
 
         case 1:
-            // console.log('Add Product')
-            addProduct()
+            addProduct();
             break;
 
         case 2:
-            console.log('viewProducts')
+            console.log("View Products");
             break;
 
         case 3:
-            console.log('searchProduct')
+            console.log("Search Product");
             break;
 
         case 4:
-            console.log('updateProduct')
+            console.log("Update Product");
             break;
 
         case 5:
-            console.log('deleteProduct')
+            console.log("Delete Product");
             break;
 
         case 6:
-            console.log('stockIn')
+            console.log("Stock In");
             break;
 
         case 7:
-            console.log('stockOut')
+            console.log("Stock Out");
             break;
 
         case 8:
-            console.log('lowStockReport')
+            console.log("Low Stock Report");
             break;
 
         case 9:
-            console.log('outOfStockReport')
+            console.log("Out Of Stock Report");
             break;
 
         case 10:
-            console.log('inventoryValue')
+            console.log("Inventory Value");
             break;
 
         case 11:
-            console.log("\nThank You!");
+            console.log("\n👋 Thank You!");
             break;
 
         default:
-            console.log("\nInvalid Choice!");
-
+            console.log("\n❌ Invalid Choice!");
     }
 
 } while (choice !== 11);
