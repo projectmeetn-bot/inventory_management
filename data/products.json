@@ -3,6 +3,12 @@
         "id": 1,
         "name": "HP Vicstus",
         "price": 83000,
-        "stock": 0
+        "stock": 10
+    },
+    {
+        "id": 2,
+        "name": "Croma Smart TV",
+        "price": 1000000,
+        "stock": 100
     }
 ]
