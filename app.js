@@ -203,7 +203,7 @@ do {
             break;
 
         case 3:
-            console.log("Search Product");
+            searchProduct()
             break;
 
         case 4:
