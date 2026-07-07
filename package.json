@@ -1,7 +1,14 @@
 {
-  "name": "node-starter",
-  "private": true,
+  "name": "inventory-management-system",
+  "version": "1.0.0",
+  "description": "Console-based Inventory Management System using Node.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
+  },
+  "author": "Meet",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
   }
 }
