@@ -442,6 +442,23 @@ function stockOut() {
 
 }
 
+function lowStockReport() {
+    let products = readProducts();
+
+    let lowStockProducts = products.filter((product) => {
+        return product.stock <= 5;
+    });
+
+    if (lowStockProducts.length === 0) {
+        console.log("No low stock products.");
+        return;
+    }
+
+    console.log("\n========== LOW STOCK REPORT ==========\n");
+
+    console.table(lowStockProducts);
+}
+
 // ===============================
 // Main Menu
 // ===============================
@@ -498,7 +515,7 @@ do {
             break;
 
         case 8:
-            console.log("Low Stock Report");
+            lowStockReport()
             break;
 
         case 9:
