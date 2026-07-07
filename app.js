@@ -296,7 +296,7 @@ do {
             break;
 
         case 4:
-            updateProducts()
+            updateProduct()
             break;
 
         case 5:
