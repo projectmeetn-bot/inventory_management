@@ -133,6 +133,40 @@ function viewProducts() {
 
 }
 
+function searchProduct() {
+
+    try {
+
+        // Read Products
+        let products = readProducts();
+
+        // Take Product ID
+        let id = Number(line.question("Enter Product ID : "));
+
+        // Search Product
+        let product = products.find((product) => {
+            return product.id === id;
+        });
+
+        // Product Not Found
+        if (!product) {
+            throw Error("Product not found.");
+        }
+
+        // Display Product
+        console.log("\n========== PRODUCT DETAILS ==========\n");
+        console.log(`ID    : ${product.id}`);
+        console.log(`Name  : ${product.name}`);
+        console.log(`Price : ${product.price}`);
+        console.log(`Stock : ${product.stock}`);
+
+    }
+    catch (error) {
+        console.log("\n❌", error.message);
+    }
+
+}
+
 // ===============================
 // Main Menu
 // ===============================
