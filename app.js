@@ -118,6 +118,21 @@ function addProduct() {
 
 }
 
+function viewProducts() {
+
+    let products = readProducts();
+
+    if (products.length === 0) {
+        console.log("\n❌ No products available.");
+        return;
+    }
+
+    console.log("\n========== PRODUCT LIST ==========\n");
+
+    console.table(products);
+
+}
+
 // ===============================
 // Main Menu
 // ===============================
@@ -150,7 +165,7 @@ do {
             break;
 
         case 2:
-            console.log("View Products");
+            viewProducts()
             break;
 
         case 3:
