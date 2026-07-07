@@ -1,9 +1,9 @@
 [
     {
         "id": 1,
-        "name": "HP Victus",
-        "price": 83000,
-        "stock": 100
+        "name": "HP Victus rtx 4050",
+        "price": 85000,
+        "stock": 150
     },
     {
         "id": 2,
