@@ -484,6 +484,19 @@ function outOfStockReport() {
 
 }
 
+function inventoryValue() {
+    let products = readProducts();
+
+    let totalValue = products.reduce((total, product) => {
+        return total + (product.price * product.stock);
+    }, 0);
+
+    console.log("\n=====================================");
+    console.log("        INVENTORY VALUE");
+    console.log("=====================================");
+    console.log(`Total Inventory Value : ₹${totalValue}`);
+}
+
 // ===============================
 // Main Menu
 // ===============================
@@ -548,7 +561,7 @@ do {
             break;
 
         case 10:
-            console.log("Inventory Value");
+            inventoryValue()
             break;
 
         case 11:
