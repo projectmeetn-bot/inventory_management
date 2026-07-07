@@ -371,6 +371,77 @@ function stockIn() {
 
 }
 
+function stockOut() {
+
+    try {
+
+        // Read Products
+        let products = readProducts();
+
+        // Take Product ID
+        let id = Number(line.question("Enter Product ID : "));
+
+        // Find Product
+        let product = products.find((product) => {
+            return product.id === id;
+        });
+
+        // Product Not Found
+        if (!product) {
+            throw Error("Product not found.");
+        }
+
+        // Display Current Stock
+        console.log("\n========== CURRENT STOCK ==========");
+        console.log(`Product : ${product.name}`);
+        console.log(`Stock   : ${product.stock}`);
+
+        // Take Stock Out Quantity
+        let quantity = Number(
+            line.question("\nEnter Stock Out Quantity : ")
+        );
+
+        // ===============================
+        // Validations
+        // ===============================
+
+        // Number Validation
+        if (Number.isNaN(quantity)) {
+            throw Error("Quantity must be a valid number.");
+        }
+
+        // Quantity Validation
+        if (quantity <= 0) {
+            throw Error("Quantity must be greater than 0.");
+        }
+
+        // Available Stock Validation
+        if (quantity > product.stock) {
+            throw Error("Insufficient stock.");
+        }
+
+        // Decrease Stock
+        product.stock -= quantity;
+
+        // Save Updated Products
+        saveProducts(products);
+
+        // Success Message
+        console.log("\n=====================================");
+        console.log("✅ Stock Updated Successfully");
+        console.log("=====================================");
+        console.log(`Product        : ${product.name}`);
+        console.log(`Removed Stock  : ${quantity}`);
+        console.log(`Current Stock  : ${product.stock}`);
+
+    } catch (error) {
+
+        console.log("\n❌", error.message);
+
+    }
+
+}
+
 // ===============================
 // Main Menu
 // ===============================
@@ -423,7 +494,7 @@ do {
             break;
 
         case 7:
-            console.log("Stock Out");
+            stockOut()
             break;
 
         case 8:
