@@ -167,27 +167,42 @@ function searchProduct() {
 
 }
 
-function updateProducts() {
-    try {
-        let products = readProducts();
-        let id = Number(line.question('Enter Product ID :'));
+function updateProduct() {
 
+    try {
+
+        // Read Products
+        let products = readProducts();
+
+        // Take Product ID
+        let id = Number(line.question("Enter Product ID : "));
+
+        // Find Product
         let product = products.find((product) => {
             return product.id === id;
         });
 
+        // Product Not Found
         if (!product) {
             throw Error("Product not found.");
         }
 
-        console.log("\nCurrent Product");
+        // Display Current Product
+        console.log("\n========== CURRENT PRODUCT ==========");
+        console.log(`ID    : ${product.id}`);
         console.log(`Name  : ${product.name}`);
         console.log(`Price : ${product.price}`);
         console.log(`Stock : ${product.stock}`);
+        console.log("=====================================\n");
 
-        let newName = line.question("Enter New Name : ").trim();
-        let newPrice = Number(line.question("Enter New Price : "));
-        let newStock = Number(line.question("Enter New Stock : "));
+        // Take New Details
+        let newName = line.question("Enter New Product Name : ").trim();
+        let newPrice = Number(line.question("Enter New Product Price : "));
+        let newStock = Number(line.question("Enter New Product Stock : "));
+
+        // ===============================
+        // Validations
+        // ===============================
 
         // Number Validation
         if (Number.isNaN(newPrice)) {
@@ -213,15 +228,32 @@ function updateProducts() {
             throw Error("Stock must be greater than 0.");
         }
 
+        // ===============================
+        // Update Product
+        // ===============================
+
         product.name = newName;
         product.price = newPrice;
         product.stock = newStock;
 
+        // Save Updated Products
         saveProducts(products);
+
+        // Success Message
+        console.log("\n=====================================");
         console.log("✅ Product Updated Successfully");
+        console.log("=====================================");
+        console.log(`ID    : ${product.id}`);
+        console.log(`Name  : ${product.name}`);
+        console.log(`Price : ${product.price}`);
+        console.log(`Stock : ${product.stock}`);
+
     } catch (error) {
-        console.log(error.message)
+
+        console.log("\n❌", error.message);
+
     }
+
 }
 
 // ===============================
